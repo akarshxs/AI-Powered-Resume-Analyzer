@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Analyzer</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+            background: #f4f6fa;
+        }
+        .box {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+        .btn {
+            padding: 10px 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        pre {
+            background: #111827;
+            color: #d1d5db;
+            padding: 15px;
+            border-radius: 8px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>AI Resume Analyzer</h2>
+
+    <form id="form">
+        <label>Upload Resume (PDF / DOCX / TXT)</label><br>
+        <input type="file" name="resume_file" id="resume_file" required><br><br>
+
+        <label>Job Description (optional)</label><br>
+        <textarea name="job_description" id="job_description" rows="5" style="width:100%;"></textarea><br><br>
+
+        <button class="btn" type="submit">Analyze</button>
+    </form>
+
+    <h3>Result:</h3>
+    <div id="result"><em>No analysis yet.</em></div>
+</div>
+
+<script>
+    const form = document.getElementById("form");
+    const resultBox = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const file = document.getElementById("resume_file").files[0];
+        if (!file) return alert("Please upload a file.");
+
+        const fd = new FormData();
+        fd.append("resume_file", file);
+        fd.append("job_description", document.getElementById("job_description").value);
+
+        resultBox.innerHTML = "<em>Analyzing...</em>";
+
+        const res = await fetch("/api/analyze", { method: "POST", body: fd });
+        const data = await res.json();
+
+        resultBox.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    });
+</script>
+
+</body>
+</html>
