@@ -33,7 +33,7 @@ Built with state-of-the-art NLP models, this project helps job seekers optimize 
 
 ## 📂 Project Structure
 
-AI-Resume-Analyzer/
+``AI-Resume-Analyzer/
 │── app.py # Flask backend application
 │── analysis/
 │ ├── scorer.py # ATS score generator
@@ -44,10 +44,7 @@ AI-Resume-Analyzer/
 │── templates/
 │ └── index.html # Upload page UI
 │── requirements.txt # Dependencies
-│── README.md
-
-yaml
-Copy code
+│── README.md``
 
 ---
 
